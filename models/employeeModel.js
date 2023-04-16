@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const employeeSchema = mongoose.Schema({
 
     firstName: {
@@ -16,11 +17,14 @@ const employeeSchema = mongoose.Schema({
     },
     contactNo:[{
         type: Number,
-        required : [true , 'Enter Contact Number']
+        required : [true , 'Enter Contact Number'],
+        match: /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/,
+
     }],
     email: [{
         type: String,
-       required : [true , 'Enter Email Address']
+        required : [true , 'Enter Email Address'],
+        unique:true,
     }],
     address: {
         street: {
@@ -49,6 +53,11 @@ const employeeSchema = mongoose.Schema({
         default: Date.now()
     }
 });
+
+employeeSchema.path('contactNo').validate(function validatePhone() {
+    return ( this.phoneNr > 999999999 );
+  });
+
 const employeeModel = new mongoose.model("employee", employeeSchema)
 
 module.exports = employeeModel;

@@ -19,7 +19,7 @@ exports.createEmployee = catchAsyceError(async (req, res) => {
 //Get All Employee
 exports.ListEmployee = catchAsyceError(async (req, res) => {
 
-    var resultPerPage = 1;
+    var resultPerPage = 3;
     var page = req.params.page;
     var skip = resultPerPage * page
 
